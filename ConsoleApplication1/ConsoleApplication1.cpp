@@ -6,17 +6,17 @@ using namespace std;
 
 struct tube {
     string Name = "";
-    float KM = -1;
-    int MM = -1;
+    int KM = 0;
+    int MM = 0;
     bool CHECK = true;
 
 };
 
 struct KS {
     string Name1 = "";
-    int KC = -1;
-    int KCV = -1;
-    float EFFECT = -1;
+    int KC = 0;
+    int KCV = 0;
+    float EFFECT = 0;
 };
 
 tube tube_cin() {
@@ -32,26 +32,15 @@ tube tube_cin() {
     cin >> T.CHECK;
     return T;
 };
-
-
 KS KS_cin() {
     KS K;
 
     cout << "название КС " << endl;
     cin >> K.Name1;
     cout << "количество цехов " << endl;
-    cin >> K.KC; 
+    cin >> K.KC;
     cout << "количество цехов в работе " << endl;
     cin >> K.KCV;
-    while (true) {
-        if (K.KCV > K.KC) {
-            cout << "Количество цехов в работе не может быть больше чем всего цехов" << endl;
-            cin >> K.KCV;
-        }
-        else {
-            break;
-        }
-    };
     cout << "эффективность " << endl;
     cin >> K.EFFECT;
     return K;
@@ -86,7 +75,7 @@ void edittubs(tube T) {
 
 void editKS(KS K) {
 
-    string boolean_const = "";
+    string boolean_const = "5";
     cout << "количество цехов" << K.KC << endl;
     cout << "количество цехов в работе" << K.KCV << endl;
     cout << "Введите 1 для запуска цеха и 0 для его остановки" << endl;
@@ -109,29 +98,37 @@ void editKS(KS K) {
     cout << "количество цехов в работе" << K.KCV << endl;
 }
 
-void save_to(tube T,KS K) {
+void save_to(tube T) {
 
     ofstream out;
     out.open("zapis_in_file.txt");
     if (out.is_open())
     {
         string Data = "";
-        Data = "Tube" + '\n' + T.Name + '\n';
+        Data += "Tube" + '\n' + T.Name + '\n';
         Data = Data + to_string(T.KM) + '\n';
         Data = Data + to_string(T.MM) + '\n';
         Data = Data + to_string(T.CHECK) + '\n';
-        string Data2 = "";
-        Data2 = "KS" + '\n' + K.Name1 + '\n';
-        Data2 = Data2 + to_string(K.KC) + '\n';
-        Data2 = Data2 + to_string(K.KCV) + '\n';
-        Data2 = Data2 + to_string(K.EFFECT) + '\n';
-        out << Data2 << std::endl;
 
         out << Data << endl;
     }
     out.close();
 }
+void save_to2(KS K) {
 
+    ofstream out;
+    out.open("zapis_in_file.txt");
+    if (out.is_open())
+    {
+        string Data = "";
+        Data = "KS" + '\n' + K.Name1 + '\n';
+        Data = Data + to_string(K.KC) + '\n';
+        Data = Data + to_string(K.KCV) + '\n';
+        Data = Data + to_string(K.EFFECT) + '\n';
+        out << Data << std::endl;
+    }
+    out.close();
+}
 void loads_from_file(tube T) {
     string line;
     ifstream in("zapis_in_file.txt"); // 
@@ -154,17 +151,21 @@ void loads_from_file(tube T) {
     }
     in.close();
 }
-void menu() {
+int menu() {
     tube T;
     KS K;
     while (true) {
+        try
+        {
             cout << "1. Добавить трубу" << endl;
             cout << "2. Добавить КС" << endl;
             cout << "3. Просмотр всех объектов" << endl;
             cout << "4. Редактировать трубу" << endl;
             cout << "5. Редактировать КС" << endl;
-            cout << "6. Сохранить данные " << endl;
-            cout << "7. Загрузить данные " << endl;
+            cout << "6. Сохранить трубу " << endl;
+            cout << "7. Сохранить КС " << endl;
+            cout << "8. Загрузить трубу " << endl;
+            cout << "9. Загрузить КС " << endl;
             cout << "0. Выход" << endl;
             int number;
             cin >> number;
@@ -182,18 +183,24 @@ void menu() {
                 break;
             case 5: editKS(K);
                 break;
-            case 6: save_to(T,K);
+            case 6: save_to(T);
                 break;
+            case 7: save_to2(K);
                 break;
-            case 7: loads_from_file(T);
+            case 8: loads_from_file(T);
                 break;
-            case 0: 
+            case 9:
                 break;
+            case 0: return false;
             default: cout << "Данная команда отсутствует\n";
 
 
             }
-
+        } 
+        catch (...)
+        {
+            cout << "что то пошло не так" << endl;
+        }
 
     }
 
