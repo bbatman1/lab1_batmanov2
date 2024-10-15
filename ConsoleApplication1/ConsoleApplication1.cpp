@@ -19,6 +19,105 @@ struct KS {
     float EFFECT = 0;
 };
 
+int check(int max, int min) {
+    int z;
+    cin >> z;
+    cin.ignore();
+    while (true) {
+        if (cin.fail()) {
+            cout << "Ошибка. Введено не целое число или символ! Попробуйте ещё раз: ";
+            cin.clear();
+            while (cin.get() != '\n');
+        }
+        else if (z < min) {
+            cout << "Ошибка. Введено отрицательное число или ноль! Попробуйте ещё раз: ";
+        }
+        else if (max != 0 && z > max) {
+            cout << "Ошибка. Введено число больше максимального! Попробуйте ещё раз: ";
+        }
+        else {
+            break;
+        }
+        cin >> z;
+        cin.ignore();
+    }
+    return z;
+}
+
+float floatcheck(int max, float min) {
+    float z;
+    cin >> z;
+    cin.ignore();
+    while (true) {
+        if (cin.fail()) {
+            cout << "Ошибка. Введено не целое число или символ! Попробуйте ещё раз: ";
+            cin.clear();
+            while (cin.get() != '\n');
+        }
+        else if (z < min) {
+            cout << "Ошибка. Введено отрицательное число или ноль! Попробуйте ещё раз: ";
+        }
+        else if (max != 0 && z > max) {
+            cout << "Ошибка. Введено число больше максимального! Попробуйте ещё раз: ";
+        }
+        else {
+            break;
+        }
+        cin >> z;
+        cin.ignore();
+    }
+    return z;
+}
+
+int check(int max, int low) {
+    int z;
+    cin >> z;
+    cin.ignore();
+    while (true) {
+        if (cin.fail()) {
+            cout << "Ошибка. Введено не целое число или символ! Попробуйте ещё раз: ";
+            cin.clear();
+            while (cin.get() != '\n');
+        }
+        else if (z < low) {
+            cout << "Ошибка. Введено отрицательное число или ноль! Попробуйте ещё раз: ";
+        }
+        else if (max != 0 && z > max) {
+            cout << "Ошибка. Введено число больше максимального! Попробуйте ещё раз: ";
+        }
+        else {
+            break;
+        }
+        cin >> z;
+        cin.ignore();
+    }
+    return z;
+}
+float floatcheck(int max, float low) {
+    float z;
+    cin >> z;
+    cin.ignore();
+    while (true) {
+        if (cin.fail()) {
+            cout << "Ошибка. Введено не целое число или символ! Попробуйте ещё раз: ";
+            cin.clear();
+            while (cin.get() != '\n');
+        }
+        else if (z < low) {
+            cout << "Ошибка. Введено отрицательное число или ноль! Попробуйте ещё раз: ";
+        }
+        else if (max != 0 && z > max) {
+            cout << "Ошибка. Введено число больше максимального! Попробуйте ещё раз: ";
+        }
+        else {
+            break;
+        }
+        cin >> z;
+        cin.ignore();
+    }
+    return z;
+}
+
 tube tube_cin() {
     tube T;
 

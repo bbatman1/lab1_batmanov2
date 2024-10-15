@@ -5,29 +5,59 @@
 using namespace std;
 
 struct tube {
-    string Name = "";
-    float KM = -1;
-    int MM = -1;
-    bool CHECK = true;
+    string Name;
+    float KM;
+    int MM;
+    bool CHECK;
 
 };
 
 struct KS {
-    string Name1 = "";
-    int KC = -1;
-    int KCV = -1;
-    float EFFECT = -1;
+    string Name1;
+    int KC;
+    int KCV;
+    float EFFECT;
 };
+
+int check() {
+    int num;
+    while (true) {
+        cin >> num;
+        if (cin.fail() || num <= 0 || cin.peek() != '\n') {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Ошибка. Попробуйте снова: ";
+        }
+        else {
+            return num;
+        }
+    }
+}
+
+float checkfloat() {
+    float num;
+    while (true) {
+        cin >> num;
+        if (cin.fail() || num <= 0) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Ошибка. Попробуйте снова: ";
+        }
+        else {
+            return num;
+        }
+    }
+}
 
 tube tube_cin() {
     tube T;
 
     cout << "название трубы " << endl;
-    cin >> T.Name;
+    getline(cin >> ws, T.Name);
     cout << "длина" << endl;
-    cin >> T.KM;
+    T.KM = checkfloat();
     cout << "диаметр" << endl;
-    cin >> T.MM;
+    T.MM = check();
     cout << "в ремонте ли?" << endl;
     cin >> T.CHECK;
     return T;
@@ -38,11 +68,11 @@ KS KS_cin() {
     KS K;
 
     cout << "название КС " << endl;
-    cin >> K.Name1;
+    getline(cin >> ws, K.Name1);
     cout << "количество цехов " << endl;
-    cin >> K.KC; 
+    K.KC = check();
     cout << "количество цехов в работе " << endl;
-    cin >> K.KCV;
+    K.KCV = check();
     while (true) {
         if (K.KCV > K.KC) {
             cout << "Количество цехов в работе не может быть больше чем всего цехов" << endl;
@@ -53,23 +83,41 @@ KS KS_cin() {
         }
     };
     cout << "эффективность " << endl;
-    cin >> K.EFFECT;
+    K.EFFECT = checkfloat();
     return K;
 };
 
-void show(tube T) {
+void show(const tube& T) {
     cout << "название трубы " << T.Name << endl;
     cout << "длина " << T.KM << endl;
     cout << "диаметр " << T.MM << endl;
     cout << "в ремонте ли? " << T.CHECK << endl;
 
 };
-void show_2(KS K) {
+void show_2(const KS& K) {
     cout << "название КС " << K.Name1 << endl;
     cout << "количество цехов " << K.KC << endl;
     cout << "количество цехов в работе " << K.KCV << endl;
     cout << "эффективность " << K.EFFECT << endl;
 };
+
+void view_all(const tube& T, const KS& K) {
+    if (K.KC > 0 && T.MM > 0) {
+        show(T);
+        show_2(K);
+    }
+    else if (K.KC < 1 && T.MM > 0) {
+        show(T);
+        cout << "КС еще не была добавлена!" << endl;
+    }
+    else if (K.KC > 0 && T.MM < 1) {
+        show_2(K);
+        cout << "Труба еще не была добавлена!" << endl;
+    }
+    else {
+        cout << "Вы еще не добавили ни одного объекта." << endl;
+    }
+}
 
 void edittubs(tube T) {
     if (T.CHECK == 0 or T.CHECK == false) {
@@ -81,7 +129,6 @@ void edittubs(tube T) {
         }
     }
 }
-
 
 
 void editKS(KS K) {
@@ -132,24 +179,29 @@ void save_to(tube T,KS K) {
     out.close();
 }
 
-void loads_from_file(tube T) {
-    string line;
-    ifstream in("zapis_in_file.txt"); // 
-    if (in.is_open())
-    {
-        while (getline(in, line))
-        {
-            if (line == "Tube") {
+void loads_from_file(tube& T, KS& K) {
+    ifstream in("zapis_in_file.txt");
+    if (in.is_open()) {
+        string finde;
+        while (getline(in, finde)) {
+            if (finde == "data Pipe:") {
                 getline(in, T.Name);
-                getline(in, line);
-                in >> T.KM;
-                getline(in, line);
-                in >> T.MM;
-                getline(in, line);
-                in >> T.CHECK;
-                cout << T.Name << endl;
-                cout << T.KM << endl;
+                in >> T.KM >> T.MM >> T.CHECK;
+                in.ignore();
+                cout << "Данные из файла о трубе записаны" << endl;
             }
+            if (finde == "data CS:") {
+                getline(in, K.Name1);
+                in >> K.KC >> K.KCV >> K.EFFECT;
+                in.ignore();
+                cout << "Данные из файла о КС записаны" << endl;
+            }
+        }
+        if (T.Name.empty()) {
+            cout << "Нет данных о трубе" << endl;
+        }
+        if (K.Name1.empty()) {
+            cout << "Нет данных о КС" << endl;
         }
     }
     in.close();
@@ -175,8 +227,7 @@ void menu() {
             case 2: K = KS_cin();
                 break;
             case 3:
-                show(T);
-                show_2(K);
+                view_all(T,K);
                 break;
             case 4: edittubs(T);
                 break;
