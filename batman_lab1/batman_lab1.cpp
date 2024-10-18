@@ -58,22 +58,14 @@ tube tube_cin() {
     T.KM = checkfloat();
     cout << "диаметр" << endl;
     T.MM = check();
-    cout << "в ремонте ли?" << endl;
-    while (true)
-    {
-        T.CHECK = check();
-        if (T.CHECK != 0 || T.CHECK != 1)
-        {
-            cout << "Введите число от 0 до 1:" << endl;
-            T.CHECK = check();
-        }
-        else {
-            break;
-        }
-    }
+    T.CHECK = true;
     return T;
 };
 
+void switch_status(tube& T) {
+    T.CHECK =!T.CHECK;
+    cout << "Статус изменен!" << endl;
+}
 
 KS KS_cin() {
     KS K;
