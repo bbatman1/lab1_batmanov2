@@ -59,7 +59,18 @@ tube tube_cin() {
     cout << "диаметр" << endl;
     T.MM = check();
     cout << "в ремонте ли?" << endl;
-    cin >> T.CHECK;
+    while (true)
+    {
+        T.CHECK = check();
+        if (T.CHECK != 0 || T.CHECK != 1)
+        {
+            cout << "Введите число от 0 до 1:" << endl;
+            T.CHECK = check();
+        }
+        else {
+            break;
+        }
+    }
     return T;
 };
 
@@ -224,7 +235,8 @@ void menu() {
             case 1:
                 T = tube_cin();
                 break;
-            case 2: K = KS_cin();
+            case 2:
+                K = KS_cin();
                 break;
             case 3:
                 view_all(T,K);
@@ -234,7 +246,6 @@ void menu() {
             case 5: editKS(K);
                 break;
             case 6: save_to(T,K);
-                break;
                 break;
             case 7: loads_from_file(T);
                 break;
