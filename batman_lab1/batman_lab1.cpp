@@ -169,7 +169,7 @@ void StopKC(KS& K) {
         return;
     }
     do {
-        cout << "Введите сколько станций сделать рабомичи " ;
+        cout << "Введите сколько станций сделать рабомичи ";
         count = check();
     } while (count < 1 || count > K.KCV);
 
@@ -192,7 +192,7 @@ void save2(const KS& K, ofstream& out)
 }
 
 void saveall(const tube& T, const KS& K) {
-    if (T.Name.empty() && K.Name1.empty()) {
+    if (T.Name.empty() && K.Name1.empty()) { // empty return true, if stroka pustai
         cout << "Имен нет!" << endl;
         return;
     }
@@ -243,6 +243,9 @@ void loads_from_file(tube& T, KS& K) {
 void menu() {
     tube T;
     KS K;
+    bool T_exists = false; // default nothing no
+    bool K_exists = false;
+
     while (true) {
         cout << "1. Добавить трубу" << endl;
         cout << "2. Добавить КС" << endl;
@@ -252,37 +255,65 @@ void menu() {
         cout << "6. Сохранить данные " << endl;
         cout << "7. Загрузить данные " << endl;
         cout << "8. Выход" << endl;
+
         int number;
-        cin >> number;
+        number = check();
+        cout << "\n";
+
         switch (number) {
         case 1:
             T = tube_cin();
+            bool T_exists = true;
             break;
         case 2:
             K = KS_cin();
+            bool K_exists = true;
             break;
         case 3:
             view_all(T, K);
             break;
-        case 4: switch_status(T);
+        case 4: 
+            if (T_exists)
+                switch_status(T);
+            else
+                cout << "Tube not.\n";
             break;
-        case 5: 
-            cout << "1. Включить цех(и)\n2. Выключить цех(и)." << endl;
-            int number_choose;
-            cin >> number_choose;
-            switch (number_choose) {
-            case 1: StartKC(K);
-                break;
-            case 2: StopKC(K);
-                break;
+        case 5:
+            if (K_exists) {
+                cout << "1. Включить цех(и)\n2. Выключить цех(и)." << endl;
+                int number_choose;
+                cin >> number_choose;
+                switch (number_choose) {
+                case 1: StartKC(K);
+                    break;
+                case 2: StopKC(K);
+                    break;
+                default:
+                    cout << "Введите 1 или 2!";
+                    break;
+                }
             }
+
+            else
+                cout << "KS not.\n";
             break;
-        case 6: saveall(T, K);
+
+        case 6:
+            saveall(T, K);
             break;
-        case 7: loads_from_file(T, K);
+        case 7: 
+            loads_from_file(T, K);
+            if (T.KM < 0) {
+                T_exists = false;
+            }
+            else T_exists = true;
+            if (K.KC < 0) {
+                K_exists = false;
+            }
+            else K_exists = true;
             break;
         case 8:
-            break;
+            return;
         default: cout << "Данная команда отсутствует\n";
 
 
