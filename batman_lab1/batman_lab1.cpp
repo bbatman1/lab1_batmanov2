@@ -262,23 +262,32 @@ void menu() {
 
         switch (number) {
         case 1:
+        {
             T = tube_cin();
             bool T_exists = true;
             break;
+        }
         case 2:
+        {
             K = KS_cin();
             bool K_exists = true;
             break;
+        }
         case 3:
+        {
             view_all(T, K);
             break;
-        case 4: 
+        }
+        case 4:
+        {
             if (T_exists)
                 switch_status(T);
             else
                 cout << "Tube not.\n";
             break;
+        }
         case 5:
+        {
             if (K_exists) {
                 cout << "1. Включить цех(и)\n2. Выключить цех(и)." << endl;
                 int number_choose;
@@ -297,11 +306,14 @@ void menu() {
             else
                 cout << "KS not.\n";
             break;
-
+        }
         case 6:
+        {
             saveall(T, K);
             break;
-        case 7: 
+        }
+        case 7:
+        {
             loads_from_file(T, K);
             if (T.KM < 0) {
                 T_exists = false;
@@ -312,9 +324,14 @@ void menu() {
             }
             else K_exists = true;
             break;
+        }
         case 8:
             return;
-        default: cout << "Данная команда отсутствует\n";
+        default:
+        {
+            cout << "Данная команда отсутствует\n";
+            break;
+        }
 
 
         }
