@@ -23,7 +23,7 @@ int check() {
     int num;
     while (true) {
         cin >> num;
-        if (cin.fail() || num < 0 || cin.peek() != '\n') { // cin.fail() возвращает true, если нашлась ошибка при вводе; cin.peek() spaces
+        if (cin.fail() || num <= 0 || cin.peek() != '\n') { // cin.fail() возвращает true, если нашлась ошибка при вводе; cin.peek() spaces
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); //  Пропускает все оставшиеся символы в буфере ввода до символа новой строки
             cout << "Ошибка. Попробуйте снова: ";
@@ -38,7 +38,7 @@ float checkfloat() {
     float num;
     while (true) {
         cin >> num;
-        if (cin.fail() || num <= 0) {
+        if (cin.fail() || num < 0) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Ошибка. Попробуйте снова: ";
@@ -99,7 +99,7 @@ void show(const tube& T) {
     cout << "название трубы " << T.Name << endl;
     cout << "длина " << T.KM << endl;
     cout << "диаметр " << T.MM << endl;
-    if (T.CHECK) {
+    if (T.CHECK) {//!!
         cout << "Труба в рабочем состоянии" << endl;
     }
     else {
@@ -116,7 +116,7 @@ void show_2(const KS& K) {
 }
 
 void view_all(const tube& T, const KS& K) {
-    if (K.KC > 0 && T.MM > 0) {
+    if (K.KC > 0 && T.MM > 0) {//!!
         show(T);
         show_2(K);
     }
@@ -177,14 +177,14 @@ void StopKC(KS& K) {
     cout << count << "теперь работают столько станций" << K.KCV << endl;
 }
 
-void save1(const tube& T, ofstream& out)
+void save(const tube& T, ofstream& out)
 {
     out << "data Pipe:" << endl;
     out << T.Name << endl;
     out << T.KM << " " << T.MM << " " << T.CHECK << endl;
 }
 
-void save2(const KS& K, ofstream& out)
+void save(const KS& K, ofstream& out)
 {
     out << "data Station:" << endl;
     out << K.Name1 << endl;
@@ -201,11 +201,11 @@ void saveall(const tube& T, const KS& K) {
     if (out.is_open())
     {
         if (!T.Name.empty()) {
-            save1(T, out);
+            save(T, out);
             cout << "Труба сохранена!" << endl;
         }
         if (!K.Name1.empty()) {
-            save2(K, out);
+            save(K, out);
             cout << "КС сохранена!" << endl;
         }
 
@@ -217,15 +217,17 @@ void loads_from_file(tube& T, KS& K) {
     ifstream in("zapis_in_file.txt");
     if (in.is_open()) {
         string finde;
+        T = {};
+        K = {};
         while (getline(in, finde)) {
             if (finde == "data Pipe:") {
                 getline(in, T.Name);
-                in >> T.KM >> T.MM >> T.CHECK;
+                in >> T.KM >> T.MM >> T.CHECK;//!!!!
                 in.ignore();
                 cout << "Данные из файла о трубе записаны" << endl;
             }
-            if (finde == "data CS:") {
-                getline(in, K.Name1);
+            if (finde == "data Station:") {
+                getline(in, K.Name1);//!!!
                 in >> K.KC >> K.KCV >> K.EFFECT;
                 in.ignore();
                 cout << "Данные из файла о КС записаны" << endl;
@@ -291,7 +293,7 @@ void menu() {
             if (K_exists) {
                 cout << "1. Включить цех(и)\n2. Выключить цех(и)." << endl;
                 int number_choose;
-                cin >> number_choose;
+                cin >> number_choose;//!!!!
                 switch (number_choose) {
                 case 1: StartKC(K);
                     break;
