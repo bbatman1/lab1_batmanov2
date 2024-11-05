@@ -23,7 +23,7 @@ int check() {
     int num;
     while (true) {
         cin >> num;
-        if (cin.fail() || num <= 0 || cin.peek() != '\n') { // cin.fail() возвращает true, если нашлась ошибка при вводе; cin.peek() spaces
+        if (cin.fail() || num < 0 || cin.peek() != '\n') { // cin.fail() возвращает true, если нашлась ошибка при вводе; cin.peek() spaces
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); //  Пропускает все оставшиеся символы в буфере ввода до символа новой строки
             cout << "Ошибка. Попробуйте снова: ";
@@ -197,7 +197,7 @@ void saveall(const tube& T, const KS& K) {
         return;
     }
     ofstream out;
-    out.open("zapis_in_file");
+    out.open("zapis_in_file.txt");
     if (out.is_open())
     {
         if (!T.Name.empty()) {
@@ -264,13 +264,13 @@ void menu() {
         case 1:
         {
             T = tube_cin();
-            bool T_exists = true;
+            T_exists = true;
             break;
         }
         case 2:
         {
             K = KS_cin();
-            bool K_exists = true;
+            K_exists = true;
             break;
         }
         case 3:
