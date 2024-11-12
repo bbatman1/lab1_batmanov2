@@ -213,32 +213,40 @@ void saveall(const tube& T, const KS& K) {
     out.close();
 }
 
+void load(tube& T, ifstream& in) {
+    if (in.is_open()) {
+        getline(in >> ws, T.Name);
+        in >> T.KM >> T.MM >> T.CHECK;
+        cout << "Данные трубы из файла записаны" << endl;
+    }
+}
+
+void load(KS& K, ifstream& in) {
+    if (in.is_open()) {
+        getline(in >> ws, K.Name1);
+        in >> K.KC >> K.KCV >> K.EFFECT;
+        cout << "Данные станции из файла записаны" << endl;
+    }
+}
+
 void loads_from_file(tube& T, KS& K) {
     ifstream in("zapis_in_file.txt");
-    if (in.is_open()) {
-        string finde;
-        T = {};
-        K = {};
-        while (getline(in, finde)) {
-            if (finde == "data Pipe:") {
-                getline(in, T.Name);
-                in >> T.KM >> T.MM >> T.CHECK;//!!!!
-                in.ignore();
-                cout << "Данные из файла о трубе записаны" << endl;
-            }
-            if (finde == "data Station:") {
-                getline(in, K.Name1);//!!!
-                in >> K.KC >> K.KCV >> K.EFFECT;
-                in.ignore();
-                cout << "Данные из файла о КС записаны" << endl;
-            }
+    if (!in.is_open())
+    {
+        cout << "File not found" << endl;
+        return;
+    }
+    T = {};
+    K = {};
+    string findle;
+    while (getline(in >> ws, findle)) {
+        if (findle == "data Pipe:") {
+            load(T, in);
         }
-        if (T.Name.empty()) {
-            cout << "Нет данных о трубе" << endl;
+        if (findle == "data Station:") {
+            load(K, in);
         }
-        if (K.Name1.empty()) {
-            cout << "Нет данных о КС" << endl;
-        }
+
     }
     in.close();
 }
