@@ -12,6 +12,12 @@ struct tube {
 
 };
 
+struct Pipe {
+    string name = "";
+     diameter;
+    
+};
+
 struct KS {
     string Name1;
     int KC;
@@ -19,11 +25,12 @@ struct KS {
     float EFFECT;
 };
 
+// TODO: Сделать с шаблоном и проверкой min max
 int check() {
     int num;
     while (true) {
         cin >> num;
-        if (cin.fail() || num <= 0 || cin.peek() != '\n') { // cin.fail() возвращает true, если нашлась ошибка при вводе; cin.peek() spaces
+        if (cin.fail() || num <= 0 || cin.peek() != '\n' ) { // cin.fail() возвращает true, если нашлась ошибка при вводе; cin.peek() spaces
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); //  Пропускает все оставшиеся символы в буфере ввода до символа новой строки
             cout << "Ошибка. Попробуйте снова: ";
@@ -95,7 +102,7 @@ KS KS_cin() {
     }
 }
 
-void show(const tube& T) {
+void show(const tube& T) {  // TODO: Change name on "printTube"
     cout << "название трубы " << T.Name << endl;
     cout << "длина " << T.KM << endl;
     cout << "диаметр " << T.MM << endl;
@@ -169,7 +176,7 @@ void StopKC(KS& K) {
         return;
     }
     do {
-        cout << "Введите сколько станций сделать рабомичи ";
+        cout << "Введите сколько станций сделать нерабочими ";
         count = check();
     } while (count < 1 || count > K.KCV);
 
@@ -325,11 +332,11 @@ void menu() {
         case 7:
         {
             loads_from_file(T, K);
-            if (T.KM < 0) {
+            if (T.KM <= 0) {
                 T_exists = false;
             }
             else T_exists = true;
-            if (K.KC < 0) {
+            if (K.KC <= 0) {
                 K_exists = false;
             }
             else K_exists = true;
