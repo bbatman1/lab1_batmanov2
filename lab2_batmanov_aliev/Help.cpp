@@ -1,4 +1,4 @@
-﻿#include "help.h"
+﻿#include "Help.h"
 using namespace std;
 
 string inputString(istream& in)

@@ -1,5 +1,5 @@
 ﻿#include "CS.h"
-#include "help.h"
+#include "Help.h"
 using namespace std;
 
 int CS::MaxID = 0;
@@ -22,7 +22,7 @@ ostream& operator << (ostream& out, const CS& cs) // output for CS
 	return out;
 }
 
-istream& operator >> (istream& in, CS& cs) // intput for CS // êàê òóò ñäåëàòü ïðîâåðêó? -> ñäåëàëè 
+istream& operator >> (istream& in, CS& cs) // intput for CS 
 {
 	cout << "CS ID = " << cs.ID << endl;
 	cout << "name (str): ";
@@ -71,7 +71,7 @@ void CS::resetMaxID()
 	MaxID = 0;
 }
 
-bool CS::runWS() // change number of ws in in_repair for cs
+bool CS::runWS() 
 {
 	if (ws_work < ws)
 	{
@@ -82,7 +82,7 @@ bool CS::runWS() // change number of ws in in_repair for cs
 		return 0;
 }
 
-bool CS::stopWS() // change number of ws in in_repair for cs
+bool CS::stopWS() 
 {
 	if (ws_work > 0)
 	{

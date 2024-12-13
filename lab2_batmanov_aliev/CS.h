@@ -16,7 +16,7 @@ private:
 public:
 	CS();
 
-	static CS appendCS();
+	static CS addCS();
 	static void resetMaxID();
 
 	friend std::ostream& operator << (std::ostream& out, const CS& cs);
