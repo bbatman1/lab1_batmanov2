@@ -9,9 +9,9 @@ private:
 	static int top_id;
 	int ID;
 	std::string name;
-	int workstations;
-	int workstations_work;
-	double efficienty;
+	int ws;
+	int ws_work;
+	double eff;
 
 public:
 	CS();
@@ -37,6 +37,6 @@ public:
 	}
 	double getPercentWsInUse()
 	{
-		return (double)workstations_work / workstations * 100;
+		return (double)ws_work / ws * 100;
 	}
 };

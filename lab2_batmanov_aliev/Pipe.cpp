@@ -15,8 +15,8 @@ ostream& operator<<(std::ostream& out, const pipe& p)
 {
 	cout << "pipe ID = " << p.ID << endl;
 	out << "name: " << p.name << endl
-		<< "d: " << p.d << endl
-		<< "l: " << p.l << endl
+		<< "d: " << p.diameter << endl
+		<< "l: " << p.length << endl
 		<< "in_repair status: " << p.in_repair << endl;
 
 	return out;
@@ -28,9 +28,9 @@ istream& operator>>(istream& in, pipe& p)
 	cout << "name (str) = ";
 	p.name = inputString(in);
 	cout << "d (int) = ";
-	p.d = getPositiveNumber<int>(in);
+	p.diameter = getPositiveNumber<int>(in);
 	cout << "l (double) = ";
-	p.l = getPositiveNumber<double>(in);
+	p.length = getPositiveNumber<double>(in);
 	cout << "in_repair status: 0 (ready for use)" << endl;
 
 	return in;
@@ -40,8 +40,8 @@ ofstream& operator << (ofstream& fout, const pipe& p)
 {
 	fout << p.ID << endl
 		<< p.name << endl 
-		<< p.d << endl
-		<< p.l << endl
+		<< p.diameter << endl
+		<< p.length << endl
 		<< p.in_repair << endl;;
 
 	return fout;
@@ -51,8 +51,8 @@ ifstream& operator >> (ifstream& fin, pipe& p)
 {
 	fin >> p.ID;
 	getline(fin >> ws, p.name); 
-	fin >> p.d;
-	fin >> p.l;
+	fin >> p.diameter;
+	fin >> p.length;
 	fin >> p.in_repair;
 
 	return fin;

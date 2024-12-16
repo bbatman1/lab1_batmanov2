@@ -19,7 +19,7 @@ T inputNumber(istream& in)
 	{
 		in.clear();
 		in.ignore(10000, '\n');
-		cout << "ERROR wrong type --> try again: ";
+		cout << "ERROR - try again: ";
 		cerr << x << endl; 
 	}
 	cerr << x << endl;

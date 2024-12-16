@@ -9,8 +9,8 @@ private:
 	static int MaxID;
 	int ID;
 	std::string name;
-	double l; // length;
-	int d; // diameter;
+	double length;
+	int diameter; 
 	bool in_repair; 
 
 public:

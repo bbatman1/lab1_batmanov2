@@ -2,27 +2,27 @@
 #include "Help.h"
 using namespace std;
 
-int CS::MaxID = 0;
+int CS::top_id = 0;
 
 CS::CS()
 {
-	ID = ++MaxID;
+	ID = ++top_id;
 	name = "";
-	workstations_work = 0;
+	ws_work = 0;
 };
 
-ostream& operator << (ostream& out, const CS& cs) // output for CS
+ostream& operator << (ostream& out, const CS& cs) 
 {
 	cout << "CS ID = " << cs.ID << endl;
 	out << "name: " << cs.name << endl
-		<< "ws: " << cs.workstations << endl
-		<< "ws in work: " << cs.workstations_work << endl
-		<< "eff: " << cs.efficienty << endl;
+		<< "ws: " << cs.ws << endl
+		<< "ws in work: " << cs.ws_work << endl
+		<< "eff: " << cs.eff << endl;
 
 	return out;
 }
 
-istream& operator >> (istream& in, CS& cs) // intput for CS
+istream& operator >> (istream& in, CS& cs) 
 {
 	cout << "CS ID = " << cs.ID << endl;
 	cout << "name (str): ";
@@ -37,7 +37,7 @@ istream& operator >> (istream& in, CS& cs) // intput for CS
 	return in;
 }
 
-ofstream& operator << (ofstream& fout, const CS& cs) // output for CS
+ofstream& operator << (ofstream& fout, const CS& cs) 
 {
 	fout << cs.ID << endl
 		<< cs.name << endl
@@ -68,7 +68,7 @@ CS CS::addCS()
 
 void CS::resetMaxID()
 {
-	MaxID = 0;
+	top_id = 0;
 }
 
 bool CS::runWS() 
