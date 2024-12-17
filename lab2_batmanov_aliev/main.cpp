@@ -378,7 +378,6 @@ int MenuOutput()
 int main()
 {
 	setlocale(LC_ALL, "Russian");
-	cout << "Привет Hello" << endl;
 
 	//логирование в отдельный файл
 	redirect_output_wrapper cerr_out(cerr);

@@ -31,7 +31,7 @@ istream& operator >> (istream& in, CS& cs)
 	cs.ws = getPositiveNumber<int>(in);
 	cout << "ws in work (int) = ";
 	cs.ws_work = getCorrectNumber<int>(0, cs.ws, true, in);
-	cout << "eff (double) = ";
+	cout << "eff (double) >=0 and <=1 = ";
 	cs.eff = getPositiveNumber<double>(in);
 
 	return in;
